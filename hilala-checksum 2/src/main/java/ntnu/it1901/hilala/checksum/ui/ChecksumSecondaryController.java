@@ -2,6 +2,7 @@ package ntnu.it1901.hilala.checksum.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,10 +16,23 @@ import ntnu.it1901.hilala.checksum.core.FileEntry;
 import ntnu.it1901.hilala.checksum.ui.ChecksumApp;
 
 public class ChecksumSecondaryController implements Controller, Initializable {
-    
+
     private FileEntry fileEntry;
-    private Image okImage;
-    private Image failImage;
+    // Statik referanslarla ikonları tek bir yerden yükleyip testlerin beklentisini karşılıyoruz.
+    private static final Image okImage = new Image(
+        Objects.requireNonNull(
+            ChecksumSecondaryController.class.getResourceAsStream(
+                "/ntnu/it1901/hilala/checksum/ui/ok.png"
+            )
+        )
+    );
+    private static final Image failImage = new Image(
+        Objects.requireNonNull(
+            ChecksumSecondaryController.class.getResourceAsStream(
+                "/ntnu/it1901/hilala/checksum/ui/fail.png"
+            )
+        )
+    );
     
     @FXML
     private Button secondaryButton;
@@ -68,20 +82,8 @@ public class ChecksumSecondaryController implements Controller, Initializable {
     public void initialize(URL location, ResourceBundle resources) {
       System.out.println("=== SECONDARY CONTROLLER INITIALIZE CALLED ===");
       
-        // Load images
-        try {
-            okImage = new Image(getClass().getResourceAsStream("/ok.png"));
-            failImage = new Image(getClass().getResourceAsStream("/fail.png"));
-        } catch (Exception e) {
-            System.err.println("Could not load status images: " + e.getMessage());
-        }
-        
-        System.out.println("lblFilename object: " + lblFilename);
-        
-        // NULL CHECK
         fileEntry = Context.getInstance().getSelectedEntry();
-        System.out.println("FileEntry is: " + fileEntry);
-        
+
         if (fileEntry != null) {
             lblTitleFileName.setText(fileEntry.getFileName());
             lblFilename.setText(fileEntry.getFileName());
@@ -91,9 +93,8 @@ public class ChecksumSecondaryController implements Controller, Initializable {
             lblSizeBytes.setText(fileEntry.getFileSize().toString());
             lblSizeHuman.setText(fileEntry.getDisplayfileSize());
         }
-        System.out.println("Secondary button: " + secondaryButton);
 
-        
+
         // Single listener for MD5 - no duplicates!
         txtExpectedMd5.textProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal == null || newVal.isEmpty()) {

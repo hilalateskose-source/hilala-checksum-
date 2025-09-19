@@ -81,16 +81,11 @@ public class ChecksumPrimaryController implements Controller, Initializable {
   Button refreshButton;
 
   @FXML
-  Button secondaryButton;
-
-  @FXML
   Button copyButton;
-  // #endregion
 
   @FXML
-private void doNothing() {
-    // Test için boş metod
-}
+  Button primaryButton;
+  // #endregion
 
   // #region listeners
   @FXML
@@ -106,6 +101,10 @@ private void doNothing() {
   @FXML
   private void copyToClipboard() {
     FileEntry sel = filesTable.getSelectionModel().getSelectedItem();
+    // TestFX çalışırken seçim kaybolursa Context'teki son öğeye geri dönüyoruz.
+    if (sel == null) {
+      sel = Context.getInstance().getSelectedEntry();
+    }
     if (sel == null) {
       return;
     }
@@ -131,43 +130,43 @@ private void doNothing() {
   @FXML
   private void chooseFiles() throws IOException {
     // --- TEST MODE ---
-    System.out.println("System property testmode: " + System.getProperty("testmode"));
-    System.out.println("System property testMode: " + System.getProperty("testMode"));
-    
-    if ("true".equals(System.getProperty("testmode")) || true) {
-     
+    if ("true".equals(System.getProperty("testmode"))) {
       File dummy = new File("src/test/resources/it1901/test.txt");
-    if (!dummy.exists()) {
+      if (!dummy.exists()) {
         dummy.getParentFile().mkdirs();
         dummy.createNewFile();
-    }
-    
-    FileEntry fe = new FileEntry(dummy); 
-      try {
-    java.lang.reflect.Field md5Field = fe.getClass().getDeclaredField("md5Hash");
-    md5Field.setAccessible(true);
-    javafx.beans.property.StringProperty md5Prop = (javafx.beans.property.StringProperty) md5Field.get(fe);
-    md5Prop.set("dummy-md5-hash");
-    
-    java.lang.reflect.Field sha256Field = fe.getClass().getDeclaredField("sha256Hash");
-    sha256Field.setAccessible(true);
-    javafx.beans.property.StringProperty sha256Prop = (javafx.beans.property.StringProperty) sha256Field.get(fe);
-    sha256Prop.set("dummy-sha256-hash");
-    
-    System.out.println("Hash değerleri set edildi!");
-} catch (Exception e) {
-    System.out.println("Hata: " + e.getMessage());
-}
+      }
 
-      
+      FileEntry fe = new FileEntry(dummy);
+      try {
+        java.lang.reflect.Field md5Field = fe.getClass().getDeclaredField("md5Hash");
+        md5Field.setAccessible(true);
+        javafx.beans.property.StringProperty md5Prop =
+            (javafx.beans.property.StringProperty) md5Field.get(fe);
+        md5Prop.set("dummy-md5-hash");
+
+        java.lang.reflect.Field sha256Field = fe.getClass().getDeclaredField("sha256Hash");
+        sha256Field.setAccessible(true);
+        javafx.beans.property.StringProperty sha256Prop =
+            (javafx.beans.property.StringProperty) sha256Field.get(fe);
+        sha256Prop.set("dummy-sha256-hash");
+      } catch (Exception e) {
+        // Test verisini hazırlarken beklenmeyen bir hata olursa konsola yazdırıyoruz.
+        System.out.println("Hata: " + e.getMessage());
+      }
 
       this.filesTable.getItems().add(fe);
-      filesTable.getSelectionModel().select(fe);
-      filesTable.getFocusModel().focus(filesTable.getSelectionModel().getSelectedIndex());
-      secondaryButton.setDisable(false);
-      copyButton.setDisable(false);
       Context.getInstance().setItems(new ArrayList<>(this.filesTable.getItems()));
-      Context.getInstance().setSelectedEntry(fe);
+
+      // Test modunda seçim işlemlerini JavaFX kuyruğuna taşıyarak zamanlama hatalarını önlüyoruz.
+      Platform.runLater(() -> {
+        filesTable.requestFocus();
+        filesTable.getSelectionModel().select(fe);
+        filesTable.getFocusModel().focus(filesTable.getSelectionModel().getSelectedIndex());
+        Context.getInstance().setSelectedEntry(fe);
+        primaryButton.setDisable(false);
+        copyButton.setDisable(false);
+      });
 
       return;
     }
@@ -262,13 +261,16 @@ private void doNothing() {
     filesTable.getSelectionModel()
         .selectedItemProperty()
         .addListener((obs, oldSelection, newSelection) -> {
-          secondaryButton.setDisable((newSelection == null));
-          copyButton.setDisable((newSelection == null));
+          // Seçim değiştiğinde butonların durumunu güncelliyoruz.
+          boolean disabled = (newSelection == null);
+          primaryButton.setDisable(disabled);
+          copyButton.setDisable(disabled);
           Context.getInstance().setSelectedEntry(newSelection);
         });
 
-    secondaryButton.setDisable(filesTable.getSelectionModel().getSelectedItem() == null);
-    copyButton.setDisable(filesTable.getSelectionModel().getSelectedItem() == null);
+    boolean hasSelection = filesTable.getSelectionModel().getSelectedItem() != null;
+    primaryButton.setDisable(!hasSelection);
+    copyButton.setDisable(!hasSelection);
 
     refreshButton.setGraphic(new ImageView(refreshImage));
     chooseButton.setGraphic(new ImageView(loadImage));
