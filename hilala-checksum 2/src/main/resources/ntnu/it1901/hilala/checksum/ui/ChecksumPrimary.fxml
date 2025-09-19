@@ -26,13 +26,9 @@
                 text="Load more files..."
                 onAction="#chooseFiles"/>
 
-        <Button fx:id="secondaryButton" id="secondaryButton"
-            text="Back to overview"
-            onAction="#switchToSecondary"/>
-
         <Button fx:id="primaryButton" id="primaryButton"
         text="Details ..."
-        onAction="#doNothing"/>
+        onAction="#switchToSecondary"/>
 
         
 
