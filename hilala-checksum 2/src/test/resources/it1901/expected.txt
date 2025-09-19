@@ -1,0 +1,14 @@
+md5 992c2e4f9976a47af83a70433bf4ada8 *src/test/resources/it1901/DEX.djvu
+sha256 58746c9adee181bfca6e26d55285730e8ba781a380d419e0b2a44686fd31d1d3 *src/test/resources/it1901/DEX.djvu
+
+md5 9a5ea2774b4c77924d1239487d41f46d *src/test/resources/it1901/agile-manifesto-download-2019.pdf
+sha256 9b7b202637fa682c8a407c669873f6a302c800856d3d63c57b9f158e5187752f *src/test/resources/it1901/agile-manifesto-download-2019.pdf
+
+md5 b895e39a1aac2b23716c883d11f49fd5 *pg27238-images-3.epub
+sha256 78b89a9e008c9ab832a7d92bdf45de378c94d813364b5b83506c7896b62399c7 *pg27238-images-3.epub
+
+md5 ba9329afc353917b980a637da6eea02b *pg39272-images-3.epub
+sha256 4f5f560b04346781ed7c54383970cc23e1e2031baa49f5011fb792211fb2215d *pg39272-images-3.epub
+
+md5 a5945bdb40076cb44f3a5ceaaf2e8c8d *pg5000-images-3.epub
+sha256 0a67ebbafcc21b5a87df8f7ff97278b3937d0e0ebe10dd352c5874f444c3c958 *pg5000-images-3.epub

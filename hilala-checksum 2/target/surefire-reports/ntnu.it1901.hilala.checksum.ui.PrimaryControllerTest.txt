@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: ntnu.it1901.hilala.checksum.ui.PrimaryControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.618 s <<< FAILURE! -- in ntnu.it1901.hilala.checksum.ui.PrimaryControllerTest
+ntnu.it1901.hilala.checksum.ui.PrimaryControllerTest.check_overview -- Time elapsed: 2.615 s <<< ERROR!
+java.lang.RuntimeException: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.testfx.util.WaitForAsyncUtils.---- Delayed Exception: (See Trace Below) ----(WaitForAsyncUtils.java:0)
+Caused by: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:183)
+	at it1901Course@1.0-SNAPSHOT/ntnu.it1901.hilala.checksum.ui.PrimaryControllerTest.lambda$check_overview$1(PrimaryControllerTest.java:85)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@21/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+

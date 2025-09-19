@@ -1,0 +1,15 @@
+-------------------------------------------------------------------------------
+Test set: ntnu.it1901.hilala.checksum.ui.SecondaryControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.534 s <<< FAILURE! -- in ntnu.it1901.hilala.checksum.ui.SecondaryControllerTest
+ntnu.it1901.hilala.checksum.ui.SecondaryControllerTest.check_details -- Time elapsed: 2.527 s <<< ERROR!
+org.testfx.service.query.EmptyNodeQueryException: 
+there is no node in the scene-graph matching the query: NodeQuery: from nodes: [VBox@6b856d19[styleClass=root]],
+lookup by function: "org.testfx.util.NodeQueryUtils$$Lambda/0x000000880043b2b0@160396db",
+lookup by selector: "#lblFilename"
+	at org.testfx.service.query.impl.NodeQueryImpl.query(NodeQueryImpl.java:131)
+	at it1901Course@1.0-SNAPSHOT/ntnu.it1901.hilala.checksum.ui.SecondaryControllerTest.check_details(SecondaryControllerTest.java:83)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
